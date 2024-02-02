@@ -68,7 +68,10 @@ body {
 
 .abilityName {
     cursor: pointer;
-    color: blue;
+    color: orange;
     text-decoration: underline;
+}
+ul{
+    list-style-type:none ;
 }
 

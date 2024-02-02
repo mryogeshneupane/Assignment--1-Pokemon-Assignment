@@ -34,7 +34,8 @@ async function fetchAbilityDetails(abilityURL) {
 
 async function displayPokemonDetails(pokemonName) {
     const pokemonData = await fetchPokemonData(pokemonName);
-
+    document.getElementById('abilityDetails').innerHTML = '';
+    
     document.getElementById('pokemonDetails').classList.remove('hidden');
     document.getElementById('abilityDetails').classList.remove('hidden');
 
