@@ -35,6 +35,9 @@ async function fetchAbilityDetails(abilityURL) {
 async function displayPokemonDetails(pokemonName) {
     const pokemonData = await fetchPokemonData(pokemonName);
 
+    document.getElementById('pokemonDetails').classList.remove('hidden');
+    document.getElementById('abilityDetails').classList.remove('hidden');
+
     const abilities = await Promise.all(pokemonData.abilities.map(async ability => {
         const abilityDetails = await fetchAbilityDetails(ability.ability.url);
         return {
