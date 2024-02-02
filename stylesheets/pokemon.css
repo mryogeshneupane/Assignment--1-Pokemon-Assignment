@@ -1,0 +1,43 @@
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 20px;
+    padding: 2%;
+    border: 5px solid black;
+    min-height: 90%;
+}
+
+.header{
+    font-size: 2em;
+    border: 2px solid black;
+    max-width: 30%;
+    margin: 0 auto;
+    padding: 1.5%;
+}
+
+.pokemon-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.pokemon {
+    text-align: center;
+    margin: 10px;
+}
+
+.pokemon img {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    border-radius: 50%; /* Optional: Round corners for a circular appearance */
+}
+
+
+.pokemon {
+    margin: 10px;
+    cursor: pointer;
+}
+
+.detail-section {
+    margin-top: 20px;
+}
