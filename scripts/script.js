@@ -35,7 +35,7 @@ async function fetchAbilityDetails(abilityURL) {
 async function displayPokemonDetails(pokemonName) {
     const pokemonData = await fetchPokemonData(pokemonName);
 
-    const abilities = pokemonData.abilities.map(async ability => {
+    const abilities = await Promise.all(pokemonData.abilities.map(async ability => {
         const abilityDetails = await fetchAbilityDetails(ability.ability.url);
         return {
             name: ability.ability.name,
@@ -43,26 +43,51 @@ async function displayPokemonDetails(pokemonName) {
             shortEffect: abilityDetails.effect_entries.find(entry => entry.language.name === 'en').short_effect,
             flavorText: abilityDetails.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text
         };
-    });
+    }));
 
     const detailsHTML = `
         <h2>${pokemonData.name}</h2>
         <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
         <p><strong>Abilities:</strong></p>
-        <ul>
-            ${await Promise.all(abilities).then(abilities => abilities.map(ability => `
+        <ul id="abilitiesList">
+            ${abilities.map(ability => `
                 <li>
                     <strong>${ability.name}</strong>: ${ability.shortEffect}
-                    <button onclick="displayAbilityDetails('${ability.name}', '${ability.effect}', '${ability.shortEffect}', '${ability.flavorText}')">Details</button>
+                    <button class="abilityDetailsButton">Details</button>
                 </li>
-            `).join(''))}
+            `).join('')}
         </ul>
         <p><strong>Height:</strong> ${pokemonData.height}</p>
         <p><strong>Base Experience:</strong> ${pokemonData.base_experience}</p>
     `;
 
     document.getElementById('pokemonDetails').innerHTML = detailsHTML;
+
+    const abilityButtons = document.querySelectorAll('.abilityDetailsButton');
+    abilityButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            displayAbilityDetails(
+                abilities[index].name,
+                abilities[index].effect,
+                abilities[index].shortEffect,
+                abilities[index].flavorText
+            );
+        });
+    });
 }
+
+function displayAbilityDetails(abilityName, abilityEffect, abilityShortEffect, flavorText) {
+    const abilityDetailsHTML = `
+        <h3>${abilityName} Details</h3>
+        <p><strong>Effect:</strong> ${abilityEffect}</p>
+        <p><strong>Short Effect:</strong> ${abilityShortEffect}</p>
+        <p><strong>Flavor Text:</strong> ${flavorText}</p>
+    `;
+
+    document.getElementById('abilityDetails').innerHTML = abilityDetailsHTML;
+}
+
+
 
 function displayAbilityDetails(abilityName, abilityEffect, abilityShortEffect, flavorText) {
     const abilityDetailsHTML = `
@@ -92,5 +117,5 @@ async function loadPokemonList() {
     }
 }
 
-// Load the Pokémon list on page load
+
 loadPokemonList();
