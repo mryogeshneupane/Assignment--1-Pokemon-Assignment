@@ -54,10 +54,9 @@ async function displayPokemonDetails(pokemonName) {
         <p><strong>Abilities:</strong></p>
         <ul id="abilitiesList">
             ${abilities.map(ability => `
-                <li>
-                    <strong>${ability.name}</strong>
-                    <button class="abilityDetailsButton">Details</button>
-                </li>
+            <li class="abilityName">
+            <strong>${ability.name}</strong>
+        </li>
             `).join('')}
         </ul>
         <p><strong>Height:</strong> ${pokemonData.height}</p>
@@ -77,7 +76,25 @@ async function displayPokemonDetails(pokemonName) {
             );
         });
     });
+
+    // document.getElementById('pokemonDetails').classList.remove('hidden');
+
+    const abilityNames = document.querySelectorAll('.abilityName');
+    abilityNames.forEach((name, index) => {
+        name.addEventListener('click', () => {
+            // Show the abilities div when an ability name is clicked
+            document.getElementById('abilityDetails').classList.remove('hidden');
+            displayAbilityDetails(
+                abilities[index].name,
+                abilities[index].effect,
+                abilities[index].shortEffect,
+                abilities[index].flavorText
+            );
+        });
+    });
 }
+
+
 
 function displayAbilityDetails(abilityName, abilityEffect, abilityShortEffect, flavorText) {
     const abilityDetailsHTML = `
