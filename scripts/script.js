@@ -49,6 +49,8 @@ async function displayPokemonDetails(pokemonName) {
         };
     }));
 
+    
+
     const detailsHTML = `
         <h2>${pokemonData.name}</h2>
         <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">

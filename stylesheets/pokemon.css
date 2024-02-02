@@ -10,7 +10,7 @@ body {
 .header{
     font-size: 2em;
     border: 2px solid black;
-    max-width: 30%;
+    /* max-width: 30%; */
     margin: 0 auto;
     padding: 1.5%;
 }
@@ -36,6 +36,12 @@ body {
 .pokemon {
     margin: 10px;
     cursor: pointer;
+}
+
+.pkdetails, .pkabilities{
+    min-width: 40%;
+    max-width: 40%;
+    margin: 0 auto;
 }
 
 .detail-section {
