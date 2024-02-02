@@ -52,7 +52,7 @@ async function displayPokemonDetails(pokemonName) {
         <ul id="abilitiesList">
             ${abilities.map(ability => `
                 <li>
-                    <strong>${ability.name}</strong>: ${ability.shortEffect}
+                    <strong>${ability.name}</strong>
                     <button class="abilityDetailsButton">Details</button>
                 </li>
             `).join('')}
@@ -86,20 +86,6 @@ function displayAbilityDetails(abilityName, abilityEffect, abilityShortEffect, f
 
     document.getElementById('abilityDetails').innerHTML = abilityDetailsHTML;
 }
-
-
-
-function displayAbilityDetails(abilityName, abilityEffect, abilityShortEffect, flavorText) {
-    const abilityDetailsHTML = `
-        <h3>${abilityName} Details</h3>
-        <p><strong>Effect:</strong> ${abilityEffect}</p>
-        <p><strong>Short Effect:</strong> ${abilityShortEffect}</p>
-        <p><strong>Flavor Text:</strong> ${flavorText}</p>
-    `;
-
-    document.getElementById('abilityDetails').innerHTML = abilityDetailsHTML;
-}
-
 async function loadPokemonList() {
     const pokemonList = await fetchPokemonList();
     const pokemonListContainer = document.getElementById('pokemonList');
