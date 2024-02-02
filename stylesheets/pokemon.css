@@ -41,3 +41,9 @@ body {
 .detail-section {
     margin-top: 20px;
 }
+
+.specs-abilities {
+    display: flex;
+    flex-direction: row; /* Stack child elements vertically */
+}
+
