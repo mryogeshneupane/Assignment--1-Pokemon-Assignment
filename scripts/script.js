@@ -1,3 +1,8 @@
+// File Name: script.js
+// Yogesh Neupane - 200570557
+// Roshan Khatri - 200575702
+// Date of Submission - 2024/Feb/2
+
 
 // fetching pokemon data using api link
 async function fetchPokemonList() {
