@@ -24,6 +24,18 @@ async function fetchPokemonData(pokemonName) {
     }
 }
 
+// fetching pokemon ability 
+async function fetchAbilityDetails(abilityURL) {
+    try {
+        const response = await fetch(abilityURL);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching ability details:', error);
+        throw error;
+    }
+}
+
 // fetching pokemon detail 
 async function displayPokemonDetails(pokemonName) {
     const pokemonData = await fetchPokemonData(pokemonName);
