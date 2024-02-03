@@ -24,18 +24,6 @@ async function fetchPokemonData(pokemonName) {
     }
 }
 
-// fetching pokemon ability 
-async function fetchAbilityDetails(abilityURL) {
-    try {
-        const response = await fetch(abilityURL);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching ability details:', error);
-        throw error;
-    }
-}
-
 // fetching pokemon detail 
 async function displayPokemonDetails(pokemonName) {
     const pokemonData = await fetchPokemonData(pokemonName);
@@ -76,18 +64,6 @@ async function displayPokemonDetails(pokemonName) {
     `;
 
     document.getElementById('pokemonDetails').innerHTML = detailsHTML;
-
-    const abilityButtons = document.querySelectorAll('.abilityDetailsButton');
-    abilityButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            displayAbilityDetails(
-                abilities[index].name,
-                abilities[index].effect,
-                abilities[index].shortEffect,
-                abilities[index].flavorText
-            );
-        });
-    });
 
     const abilityNames = document.querySelectorAll('.abilityName');
     abilityNames.forEach((name, index) => {
