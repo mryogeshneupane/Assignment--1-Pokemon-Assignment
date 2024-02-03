@@ -1,3 +1,5 @@
+
+// fetching pokemon data using api link
 async function fetchPokemonList() {
     try {
         const response = await fetch('https://pokeapi.co/api/v2/pokemon');
@@ -10,6 +12,7 @@ async function fetchPokemonList() {
     }
 }
 
+// fetching specific pokemon data filerted by its name
 async function fetchPokemonData(pokemonName) {
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
@@ -21,6 +24,7 @@ async function fetchPokemonData(pokemonName) {
     }
 }
 
+// fetching pokemon ability 
 async function fetchAbilityDetails(abilityURL) {
     try {
         const response = await fetch(abilityURL);
@@ -32,13 +36,18 @@ async function fetchAbilityDetails(abilityURL) {
     }
 }
 
+// fetching pokemon detail 
 async function displayPokemonDetails(pokemonName) {
     const pokemonData = await fetchPokemonData(pokemonName);
+    //code to reset ability section for each pokemon
     document.getElementById('abilityDetails').innerHTML = '';
     
+    //hiding pokemon detail and ability section while loading page
     document.getElementById('pokemonDetails').classList.remove('hidden');
     document.getElementById('abilityDetails').classList.remove('hidden');
 
+
+    //storing abilities details
     const abilities = await Promise.all(pokemonData.abilities.map(async ability => {
         const abilityDetails = await fetchAbilityDetails(ability.ability.url);
         return {
@@ -50,7 +59,7 @@ async function displayPokemonDetails(pokemonName) {
     }));
 
     
-
+    //section to show pokemon detail
     const detailsHTML = `
         <h2>${pokemonData.name}</h2>
         <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
@@ -80,12 +89,10 @@ async function displayPokemonDetails(pokemonName) {
         });
     });
 
-    // document.getElementById('pokemonDetails').classList.remove('hidden');
-
     const abilityNames = document.querySelectorAll('.abilityName');
     abilityNames.forEach((name, index) => {
         name.addEventListener('click', () => {
-            // Show the abilities div when an ability name is clicked
+            // Showing the abilities div when an ability name is clicked
             document.getElementById('abilityDetails').classList.remove('hidden');
             displayAbilityDetails(
                 abilities[index].name,
@@ -98,7 +105,7 @@ async function displayPokemonDetails(pokemonName) {
 }
 
 
-
+// function to display ability details 
 function displayAbilityDetails(abilityName, abilityEffect, abilityShortEffect, flavorText) {
     const abilityDetailsHTML = `
         <h3>${abilityName} Details</h3>
@@ -109,6 +116,8 @@ function displayAbilityDetails(abilityName, abilityEffect, abilityShortEffect, f
 
     document.getElementById('abilityDetails').innerHTML = abilityDetailsHTML;
 }
+
+// function to load pokemon 
 async function loadPokemonList() {
     const pokemonList = await fetchPokemonList();
     const pokemonListContainer = document.getElementById('pokemonList');
@@ -125,6 +134,4 @@ async function loadPokemonList() {
         pokemonListContainer.appendChild(pokemonElement);
     }
 }
-
-
 loadPokemonList();
